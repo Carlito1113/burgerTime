@@ -30,9 +30,41 @@
 
   <div class="form-group">
     <label for="sleepy">Add Burger</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Devoured!<br>
-    <input type="radio" name="sleepy" value="0"> Devoured
+    <input type="radio" name="burger" value="1" checked> Devoured!<br>
+    <input type="radio" name="burger" value="0"> Devoured
   </div>
 
   <button type="submit">Add Burger</button>
 </form>
+
+<script>
+  $(".create-form").on("submit", function(event) {
+    event.preventDefault();
+
+    var newBurger = {
+      burger_name: $("#burger").val().trim(),
+      devoured: false
+    };
+
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("added a new burger");
+        location.reload();
+      }
+    );
+  });
+
+  $(".devour-burger").on("click", function(event) {
+    var id = $(this).data("id");
+
+    var devoured = 1;
+
+    var devourBurger = {
+      devour: devoured
+    };
+  })
+
+</script>
